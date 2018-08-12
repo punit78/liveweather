@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <label for="pin-code">Enter your Pin Code </label>
+    <input type="text" name="myPin" id="pincode" >
+    <button type='button'>Search</button>
+     <h2>City: <span id='mycity'></span></h2>
+     <h2>State: <span id='state'></span></h2>
+     <h2>Country: <span id='country'></span></h2>
+     <h2>Coordinate: <span id='mycity'></span></h2>
+    <script>
+    	
+    	
+    	$(document).ready(function(){
+          
+           $("button").click(function(){
+           	 let pin=$('#pincode').val();
+           	console.log(pin);
+              $.post("/geo/get",{code:pin},function(result){
+             console.log(result)
+              	
+              });
+         });
+       });
+
+</script>
+  </body>
+</html>
