@@ -1,26 +1,34 @@
 var express = require('express');
+var rp=require('request-promise');
 var router = express.Router();
-var geocoder = require('google-geocoder');
 
-
-var pin;
-var geo = geocoder({
-  key: 'AIzaSyAuZT_dXrdNs1ysxEaToneDuvVZxFq6_Vc'
-});
 
 router.post('/get',function(req, res, next){
 
- pin=req.body.code
- console.log(pin)
-geo.find(pin, function(err, result){
+  //create request object
+const options={
+  method:'GET',
+  uri:'https://openweathermap.org/data/2.5/weather',
+  qs:{
+    q:req.body.code,
+    appid:'b6907d289e10d714a6e88b30761fae22'
+  },
+  json:true
+};
+
+//send request object and process response
+rp(options)
+   .then((result)=>{
+   res.send(result);
+   })
+    .catch((err)=>{
+  console.log(err )
+    })
  
-  // process response object
-  console.log(err);
-  console.log(result);
- res.send(result);
-});
 
 });
+
+
 
 module.exports = router;
 
